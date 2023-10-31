@@ -110,8 +110,8 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
     }
 
     private final boolean userIsFriend(final U user) {
-        for (var group : this.followers.values()) {
-            for (var o : group) {
+        for (final var group : this.followers.values()) {
+            for (final var o : group) {
                 if (user.equals(o)) {
                     return true;
                 }
@@ -127,7 +127,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
     @Override
     public List<U> getFollowedUsers() {
         List<U> totalFollowers = new ArrayList<>();
-        for (var group : this.followers.values()) {
+        for (final var group : this.followers.values()) {
             totalFollowers.addAll(group);
         }
         return totalFollowers;
