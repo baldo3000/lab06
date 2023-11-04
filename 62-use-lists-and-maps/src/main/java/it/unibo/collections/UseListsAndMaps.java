@@ -13,6 +13,13 @@ import java.util.concurrent.TimeUnit;
  */
 public final class UseListsAndMaps {
 
+    private static final long AFRICA_POPULATION = 1_110_635_000L;
+    private static final long AMERICAS_POPULATION = 972_005_000L;
+    private static final long ANTARCTICA_POPULATION = 0L;
+    private static final long ASIA_POPULATION = 4_298_723_000L;
+    private static final long EUROPE_POPULATION = 742_452_000L;
+    private static final long OCEANIA_POPULATION = 38_304_000L;
+
     private UseListsAndMaps() {
     }
 
@@ -64,25 +71,14 @@ public final class UseListsAndMaps {
             numbers.add(0, i);
         }
         arrayListTime = System.nanoTime() - arrayListTime;
-        var arrayListMillis = TimeUnit.NANOSECONDS.toMillis(arrayListTime);
 
         long linkedListTime = System.nanoTime();
         for (int i = 1; i <= ELEMS; i++) {
             copyOfNumbers.add(0, i);
         }
         linkedListTime = System.nanoTime() - linkedListTime;
-        var linkedListMillis = TimeUnit.NANOSECONDS.toMillis(linkedListTime);
-        System.out.println(// NOPMD
-                "Array List time: "
-                        + arrayListTime
-                        + "ns ("
-                        + arrayListMillis
-                        + "ms)"
-                        + "\nLinked List time: "
-                        + linkedListTime
-                        + "ns ("
-                        + linkedListMillis
-                        + "ms)");
+        System.out.println("ArrayList time: " + timeToString(arrayListTime));
+        System.out.println("LinkedList time: " + timeToString(linkedListTime));
         /*
          * 6) Measure the performance of reading 1000 times an element whose
          * position is in the middle of the collection for both ArrayList and
@@ -94,25 +90,14 @@ public final class UseListsAndMaps {
             numbers.get(numbers.size() / 2);
         }
         arrayListTime = System.nanoTime() - arrayListTime;
-        arrayListMillis = TimeUnit.NANOSECONDS.toMillis(arrayListTime);
 
         linkedListTime = System.nanoTime();
         for (int i = 1; i <= 1000; i++) {
             copyOfNumbers.get(copyOfNumbers.size() / 2);
         }
         linkedListTime = System.nanoTime() - linkedListTime;
-        linkedListMillis = TimeUnit.NANOSECONDS.toMillis(linkedListTime);
-        System.out.println(// NOPMD
-                "Array List time: "
-                        + arrayListTime
-                        + "ns ("
-                        + arrayListMillis
-                        + "ms)"
-                        + "\nLinked List time: "
-                        + linkedListTime
-                        + "ns ("
-                        + linkedListMillis
-                        + "ms)");
+        System.out.println("ArrayList time: " + timeToString(arrayListTime));
+        System.out.println("LinkedList time: " + timeToString(linkedListTime));
         /*
          * 7) Build a new Map that associates to each continent's name its
          * population:
@@ -130,12 +115,12 @@ public final class UseListsAndMaps {
          * Oceania -> 38,304,000
          */
         Map<String, Long> map = new LinkedHashMap<>();
-        map.put("Africa", 1_110_635_000L);
-        map.put("Americas", 972_005_000L);
-        map.put("Antarctica", 0L);
-        map.put("Asia", 4_298_723_000L);
-        map.put("Europe", 742_452_000L);
-        map.put("Oceania", 38_304_000L);
+        map.put("Africa", AFRICA_POPULATION);
+        map.put("Americas", AMERICAS_POPULATION);
+        map.put("Antarctica", ANTARCTICA_POPULATION);
+        map.put("Asia", ASIA_POPULATION);
+        map.put("Europe", EUROPE_POPULATION);
+        map.put("Oceania", OCEANIA_POPULATION);
         /*
          * 8) Compute the population of the world
          */
@@ -144,5 +129,13 @@ public final class UseListsAndMaps {
             totalPopulation = totalPopulation + elem;
         }
         System.out.println("Total world population is: " + totalPopulation);
+    }
+
+    private static String timeToString(final long time) {
+        var timeMillis = TimeUnit.NANOSECONDS.toMillis(time);
+        return time
+                + "ns ("
+                + timeMillis
+                + "ms)";
     }
 }

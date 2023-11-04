@@ -111,7 +111,7 @@ public class GraphImpl<N> implements Graph<N> {
         predecessors.put(source, null);
         while (!queue.isEmpty()) {
             N pop = queue.poll();
-            for (var neighbor : this.nodes.get(pop)) {
+            for (final var neighbor : this.nodes.get(pop)) {
                 if (!visitedNodes.contains(neighbor)) {
                     visitedNodes.add(neighbor);
                     queue.add(neighbor);
@@ -145,7 +145,7 @@ public class GraphImpl<N> implements Graph<N> {
      */
     private void searchDFS(final N currentNode, final Set<N> visitedNodes, final Map<N, N> predecessors) {
         visitedNodes.add(currentNode);
-        for (var neighbor : this.nodes.get(currentNode)) {
+        for (final var neighbor : this.nodes.get(currentNode)) {
             if (!visitedNodes.contains(neighbor)) {
                 predecessors.put(neighbor, currentNode);
                 searchDFS(neighbor, visitedNodes, predecessors);
